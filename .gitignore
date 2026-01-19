@@ -9,3 +9,4 @@ pnpm-lock.yaml
 dist/
 .venv/
 __pycache__/
+build/
