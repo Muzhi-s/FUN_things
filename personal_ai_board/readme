@@ -1,0 +1,351 @@
+# Personal AI Board
+
+> A Local Multi-Agent Decision-Making System Powered by LLMs
+
+一个基于本地大语言模型（LLM）的多智能体决策系统。
+
+用户作为决策者（Boss）提出问题，由多个不同角色的 AI Agent 从不同视角进行分析、讨论与评估，最终形成综合决策建议。
+
+项目目标是构建一个低成本、可本地运行、面向个人学习、职业规划、项目分析和创业决策的 AI 董事会系统。
+
+---
+
+## ✨ Features
+
+### Multi-Agent Collaboration
+
+支持多个角色协同分析：
+
+- Product Manager Agent
+- Tech Lead Agent
+- Critic Agent
+- CEO Agent
+
+---
+
+### Local First
+
+基于本地模型运行：
+
+- Ollama
+- Qwen3
+
+无需 API Key。
+
+无需持续付费。
+
+支持离线使用。
+
+---
+
+### Structured Decision Making
+
+围绕同一个问题，从多个维度进行分析：
+
+- 用户需求
+- 产品价值
+- 技术可行性
+- 风险评估
+- 商业价值
+- 最终建议
+
+---
+
+### Report Generation
+
+自动生成结构化分析报告：
+
+```text
+Question
+    ↓
+Product Analysis
+    ↓
+Technical Analysis
+    ↓
+Risk Analysis
+    ↓
+CEO Summary
+```
+
+支持导出：
+
+- Markdown
+- TXT
+
+---
+
+## 🎯 Project Vision
+
+大多数 AI 聊天工具只提供单一视角。
+
+本项目希望模拟一个小型决策会议：
+
+```text
+                     User
+                       │
+                       ▼
+
+                Meeting Engine
+
+                       │
+
+      ┌────────┬────────┬────────┐
+
+      ▼        ▼        ▼
+
+   Product    Tech    Critic
+
+      └────────┴────────┘
+
+                ▼
+
+               CEO
+
+                ▼
+
+         Final Decision
+```
+
+让 AI 不只是回答问题，而是帮助用户完成思考过程。
+
+---
+
+## 🧠 Agent Roles
+
+### Product Manager
+
+负责分析：
+
+- 用户需求
+- 用户痛点
+- MVP设计
+- 产品价值
+
+---
+
+### Tech Lead
+
+负责分析：
+
+- 技术可行性
+- 开发成本
+- 技术风险
+- 实现路径
+
+---
+
+### Critic
+
+负责分析：
+
+- 潜在问题
+- 竞争风险
+- 商业挑战
+- 失败原因
+
+---
+
+### CEO
+
+负责：
+
+- 综合各方观点
+- 提供最终决策
+- 输出行动建议
+
+---
+
+## 🏗 Architecture
+
+```text
+app
+ │
+ ▼
+
+Meeting Engine
+ │
+ ├── Product Agent
+ ├── Tech Agent
+ ├── Critic Agent
+ │
+ ▼
+
+CEO Agent
+ │
+ ▼
+
+Final Report
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+personal-ai-board/
+
+├── agents/
+│   ├── product.py
+│   ├── tech.py
+│   ├── critic.py
+│   └── ceo.py
+│
+├── core/
+│   ├── llm.py
+│   ├── meeting.py
+│   └── report.py
+│
+├── prompts/
+│   ├── product.md
+│   ├── tech.md
+│   ├── critic.md
+│   └── ceo.md
+│
+├── data/
+│   ├── meetings.db
+│   └── reports/
+│
+├── config/
+│   └── settings.yaml
+│
+├── tests/
+│
+├── app.py
+│
+├── requirements.txt
+│
+└── README.md
+```
+
+---
+
+## 🚀 Roadmap
+
+### V0.1
+
+基础版本
+
+- [ ] 本地模型接入
+- [ ] CLI交互
+- [ ] 多Agent分析
+- [ ] CEO总结
+- [ ] Markdown导出
+
+---
+
+### V0.2
+
+可视化版本
+
+- [ ] Streamlit界面
+- [ ] 历史记录
+- [ ] 报告管理
+- [ ] Prompt管理
+
+---
+
+### V0.3
+
+会议模式
+
+- [ ] Agent互评
+- [ ] 多轮讨论
+- [ ] 辩论机制
+- [ ] 共识生成
+
+---
+
+### V1.0
+
+文档分析模式
+
+- [ ] PDF上传
+- [ ] 文档阅读
+- [ ] 多Agent讨论
+- [ ] 自动生成分析报告
+
+支持：
+
+- 产品需求文档
+- 商业计划书
+- 技术方案
+- 学习资料
+- 论文
+
+---
+
+## 💻 Tech Stack
+
+### LLM
+
+- Qwen3
+- Ollama
+
+### Backend
+
+- Python
+
+### UI
+
+- Streamlit
+
+### Storage
+
+- SQLite
+
+### Report
+
+- Markdown
+
+---
+
+## 🎓 Use Cases
+
+### Product Analysis
+
+```text
+我想做一个大学生AI学习产品
+```
+
+---
+
+### Career Planning
+
+```text
+我应该选择测试开发还是AI产品经理？
+```
+
+---
+
+### Startup Validation
+
+```text
+这个AI创业方向是否值得投入？
+```
+
+---
+
+### Learning Strategy
+
+```text
+如何在3个月内准备秋招？
+```
+
+---
+
+## 📜 License
+
+MIT License
+
+---
+
+## 🤝 Contributing
+
+目前项目主要面向个人使用和学习研究。
+
+欢迎交流：
+
+- Multi-Agent Systems
+- Local LLM
+- AI Product Design
+- Decision Intelligence
