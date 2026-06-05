@@ -1,25 +1,181 @@
-# Personal AI Board
+# Personal AI Meeting Assistant
 
-> A Local Multi-Agent Decision-Making System Powered by LLMs
+> A Local Multi-Agent Personal Growth Assistant Powered by LLMs
 
-一个基于本地大语言模型（LLM）的多智能体决策系统。
+Personal AI Meeting Assistant 是一个基于本地大语言模型（LLM）的多智能体个人助理系统。
 
-用户作为决策者（Boss）提出问题，由多个不同角色的 AI Agent 从不同视角进行分析、讨论与评估，最终形成综合决策建议。
+用户提出问题后，多个 AI Agent 从不同角度进行分析、规划、执行和风险评估，最终生成可执行的行动方案。
 
-项目目标是构建一个低成本、可本地运行、面向个人学习、职业规划、项目分析和创业决策的 AI 董事会系统。
+项目目标是构建一个低成本、本地运行、长期陪伴个人成长的 AI 助理系统。
 
 ---
 
-## ✨ Features
+## Why This Project
+
+大多数 AI 聊天工具提供的是单一视角回答：
+
+```text
+User
+  ↓
+ AI
+  ↓
+Answer
+```
+
+而现实中的复杂问题往往需要：
+
+* 目标规划
+* 行动拆解
+* 风险分析
+* 优先级判断
+
+因此本项目引入多个协作 Agent：
+
+```text
+                    User
+                      │
+                      ▼
+
+                Meeting Engine
+
+                      │
+
+      ┌─────────┬─────────┬─────────┐
+
+      ▼         ▼         ▼
+
+   Planner   Executor   Challenger
+
+      └─────────┴─────────┘
+
+                    ▼
+
+              Coordinator
+
+                    ▼
+
+             Action Plan
+```
+
+帮助用户获得更加全面和可执行的建议。
+
+---
+
+## Core Agents
+
+### Planner
+
+负责：
+
+* 目标分析
+* 路径规划
+* 优先级设计
+* 长期路线制定
+
+关注：
+
+> 我应该往哪里走？
+
+---
+
+### Executor
+
+负责：
+
+* 任务拆解
+* 时间安排
+* 资源规划
+* 行动建议
+
+关注：
+
+> 具体应该怎么做？
+
+---
+
+### Challenger
+
+负责：
+
+* 风险识别
+* 假设验证
+* 找出盲区
+* 提出反对意见
+
+关注：
+
+> 为什么可能失败？
+
+---
+
+### Coordinator
+
+负责：
+
+* 整合观点
+* 形成共识
+* 生成最终行动方案
+
+关注：
+
+> 下一步最值得做什么？
+
+---
+
+## Example
+
+### User Question
+
+```text
+我还有3个月准备秋招，应该如何规划？
+```
+
+### Planner
+
+```text
+拆分为：
+- 算法
+- 项目
+- 面试
+- 简历
+```
+
+### Executor
+
+```text
+每天学习2小时
+
+周末学习4小时
+```
+
+### Challenger
+
+```text
+项目经验不足
+
+算法投入时间过多
+```
+
+### Coordinator
+
+```text
+第一阶段：
+补项目
+
+第二阶段：
+强化算法
+
+第三阶段：
+模拟面试
+```
+
+---
+
+## Features
 
 ### Multi-Agent Collaboration
 
-支持多个角色协同分析：
-
-- Product Manager Agent
-- Tech Lead Agent
-- Critic Agent
-- CEO Agent
+多个角色协同分析同一个问题。
 
 ---
 
@@ -27,300 +183,41 @@
 
 基于本地模型运行：
 
-- Ollama
-- Qwen3
+* Ollama
+* Qwen
 
-无需 API Key。
+无需 API Key
 
-无需持续付费。
+无需持续付费
 
-支持离线使用。
-
----
-
-### Structured Decision Making
-
-围绕同一个问题，从多个维度进行分析：
-
-- 用户需求
-- 产品价值
-- 技术可行性
-- 风险评估
-- 商业价值
-- 最终建议
+支持离线运行
 
 ---
 
-### Report Generation
+### Action-Oriented
 
-自动生成结构化分析报告：
+聚焦：
 
-```text
-Question
-    ↓
-Product Analysis
-    ↓
-Technical Analysis
-    ↓
-Risk Analysis
-    ↓
-CEO Summary
-```
+* 行动方案
+* 学习规划
+* 项目推进
 
-支持导出：
-
-- Markdown
-- TXT
+而非简单聊天。
 
 ---
 
-## 🎯 Project Vision
+### Structured Reports
 
-大多数 AI 聊天工具只提供单一视角。
-
-本项目希望模拟一个小型决策会议：
-
-```text
-                     User
-                       │
-                       ▼
-
-                Meeting Engine
-
-                       │
-
-      ┌────────┬────────┬────────┐
-
-      ▼        ▼        ▼
-
-   Product    Tech    Critic
-
-      └────────┴────────┘
-
-                ▼
-
-               CEO
-
-                ▼
-
-         Final Decision
-```
-
-让 AI 不只是回答问题，而是帮助用户完成思考过程。
+自动生成结构化分析报告。
 
 ---
 
-## 🧠 Agent Roles
-
-### Product Manager
-
-负责分析：
-
-- 用户需求
-- 用户痛点
-- MVP设计
-- 产品价值
-
----
-
-### Tech Lead
-
-负责分析：
-
-- 技术可行性
-- 开发成本
-- 技术风险
-- 实现路径
-
----
-
-### Critic
-
-负责分析：
-
-- 潜在问题
-- 竞争风险
-- 商业挑战
-- 失败原因
-
----
-
-### CEO
-
-负责：
-
-- 综合各方观点
-- 提供最终决策
-- 输出行动建议
-
----
-
-## 🏗 Architecture
-
-```text
-app
- │
- ▼
-
-Meeting Engine
- │
- ├── Product Agent
- ├── Tech Agent
- ├── Critic Agent
- │
- ▼
-
-CEO Agent
- │
- ▼
-
-Final Report
-```
-
----
-
-## 📂 Project Structure
-
-```text
-personal-ai-board/
-
-├── agents/
-│   ├── product.py
-│   ├── tech.py
-│   ├── critic.py
-│   └── ceo.py
-│
-├── core/
-│   ├── llm.py
-│   ├── meeting.py
-│   └── report.py
-│
-├── prompts/
-│   ├── product.md
-│   ├── tech.md
-│   ├── critic.md
-│   └── ceo.md
-│
-├── data/
-│   ├── meetings.db
-│   └── reports/
-│
-├── config/
-│   └── settings.yaml
-│
-├── tests/
-│
-├── app.py
-│
-├── requirements.txt
-│
-└── README.md
-```
-
----
-
-## 🚀 Roadmap
-
-### V0.1
-
-基础版本
-
-- [ ] 本地模型接入
-- [ ] CLI交互
-- [ ] 多Agent分析
-- [ ] CEO总结
-- [ ] Markdown导出
-
----
-
-### V0.2
-
-可视化版本
-
-- [ ] Streamlit界面
-- [ ] 历史记录
-- [ ] 报告管理
-- [ ] Prompt管理
-
----
-
-### V0.3
-
-会议模式
-
-- [ ] Agent互评
-- [ ] 多轮讨论
-- [ ] 辩论机制
-- [ ] 共识生成
-
----
-
-### V1.0
-
-文档分析模式
-
-- [ ] PDF上传
-- [ ] 文档阅读
-- [ ] 多Agent讨论
-- [ ] 自动生成分析报告
-
-支持：
-
-- 产品需求文档
-- 商业计划书
-- 技术方案
-- 学习资料
-- 论文
-
----
-
-## 💻 Tech Stack
-
-### LLM
-
-- Qwen3
-- Ollama
-
-### Backend
-
-- Python
-
-### UI
-
-- Streamlit
-
-### Storage
-
-- SQLite
-
-### Report
-
-- Markdown
-
----
-
-## 🎓 Use Cases
-
-### Product Analysis
-
-```text
-我想做一个大学生AI学习产品
-```
-
----
+## Use Cases
 
 ### Career Planning
 
 ```text
 我应该选择测试开发还是AI产品经理？
-```
-
----
-
-### Startup Validation
-
-```text
-这个AI创业方向是否值得投入？
 ```
 
 ---
@@ -333,19 +230,177 @@ personal-ai-board/
 
 ---
 
-## 📜 License
+### Project Management
 
-MIT License
+```text
+我的AI学习系统下一步应该开发什么？
+```
 
 ---
 
-## 🤝 Contributing
+### Decision Support
 
-目前项目主要面向个人使用和学习研究。
+```text
+这个项目是否值得继续投入？
+```
 
-欢迎交流：
+---
 
-- Multi-Agent Systems
-- Local LLM
-- AI Product Design
-- Decision Intelligence
+### Productivity
+
+```text
+如何提高每天的学习效率？
+```
+
+---
+
+## Project Structure
+
+```text
+personal-ai-meeting-assistant/
+
+├── agents/
+│   ├── planner.py
+│   ├── executor.py
+│   ├── challenger.py
+│   └── coordinator.py
+│
+├── prompts/
+│   ├── planner.md
+│   ├── executor.md
+│   ├── challenger.md
+│   └── coordinator.md
+│
+├── core/
+│   ├── llm.py
+│   ├── meeting.py
+│   └── report.py
+│
+├── reports/
+│
+├── config/
+│   └── settings.yaml
+│
+├── app.py
+│
+└── README.md
+```
+
+---
+
+## Roadmap
+
+### V0.1
+
+* Local LLM Integration
+* Multi-Agent Meeting Engine
+* CLI Interaction
+
+---
+
+### V0.2
+
+* Prompt Management
+* Markdown Report Export
+* Meeting History
+
+---
+
+### V0.3
+
+* Streamlit UI
+* Interactive Dashboard
+* Meeting Visualization
+
+---
+
+### V1.0
+
+* PDF Upload
+* Document Analysis
+* Learning Assistant
+* Knowledge Extraction
+
+---
+
+### V2.0
+
+* Long-Term Memory
+* Personal Knowledge Base
+* Goal Tracking
+* Weekly Review
+
+---
+
+## Tech Stack
+
+### Model
+
+* Qwen
+* Ollama
+
+### Backend
+
+* Python
+
+### Interface
+
+* Streamlit
+
+### Storage
+
+* SQLite
+
+### Report
+
+* Markdown
+
+---
+
+## Design Principles
+
+### Local First
+
+优先本地运行。
+
+---
+
+### Human-Centered
+
+服务于个人成长与决策。
+
+---
+
+### Actionable
+
+输出行动建议，而不仅是观点。
+
+---
+
+### Lightweight
+
+避免复杂 Agent 编排和高资源消耗。
+
+---
+
+## Future Vision
+
+Personal AI Meeting Assistant 不只是一个聊天机器人。
+
+它更像一个持续陪伴用户成长的 AI 顾问团队。
+
+帮助用户：
+
+* 学习
+* 工作
+* 求职
+* 项目开发
+* 职业成长
+
+通过多个 Agent 的协同思考，将问题转化为清晰、可执行的行动方案。
+
+---
+
+## License
+
+MIT License
