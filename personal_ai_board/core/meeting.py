@@ -4,10 +4,10 @@ from dataclasses import dataclass
 from typing import Callable, Iterable
 
 from agents.base import Agent, AgentResponse
-from agents.ceo import CEOAgent
-from agents.critic import CriticAgent
-from agents.product import ProductManagerAgent
-from agents.tech import TechLeadAgent
+from agents.challenger import ChallengerAgent
+from agents.coordinator import CoordinatorAgent
+from agents.executor import ExecutorAgent
+from agents.planner import PlannerAgent
 from core.llm import LLMService
 
 
@@ -18,10 +18,10 @@ class MeetingResult:
     final_summary: AgentResponse
 
     def to_markdown(self) -> str:
-        sections = [f"# Personal AI Board Meeting\n\n## Question\n\n{self.question}"]
+        sections = [f"# Personal AI Meeting Assistant\n\n## Question\n\n{self.question}"]
         for response in self.analyses:
-            sections.append(f"## {response.role} Analysis\n\n{response.content}")
-        sections.append(f"## CEO Final Decision\n\n{self.final_summary.content}")
+            sections.append(f"## {response.role}\n\n{response.content}")
+        sections.append(f"## Coordinator Action Plan\n\n{self.final_summary.content}")
         return "\n\n".join(sections)
 
 
@@ -29,11 +29,11 @@ class MeetingEngine:
     def __init__(self, llm: LLMService, agents: Iterable[Agent] | None = None) -> None:
         self.llm = llm
         self.agents = list(agents) if agents is not None else [
-            ProductManagerAgent(llm),
-            TechLeadAgent(llm),
-            CriticAgent(llm),
+            PlannerAgent(llm),
+            ExecutorAgent(llm),
+            ChallengerAgent(llm),
         ]
-        self.ceo = CEOAgent(llm)
+        self.coordinator = CoordinatorAgent(llm)
 
     def run(
         self,
@@ -55,8 +55,8 @@ class MeetingEngine:
                 on_agent_done(response)
 
         if on_agent_start:
-            on_agent_start(self.ceo.name)
-        final_summary = self.ceo.analyze(question, context=self._format_context(analyses))
+            on_agent_start(self.coordinator.name)
+        final_summary = self.coordinator.analyze(question, context=self._format_context(analyses))
         if on_agent_done:
             on_agent_done(final_summary)
 
