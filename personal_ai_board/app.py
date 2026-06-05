@@ -5,6 +5,7 @@ import argparse
 from core.llm import LLMConfig, LLMService
 from agents.base import AgentResponse
 from core.meeting import MeetingEngine
+from core.report import save_report
 
 
 def parse_args() -> argparse.Namespace:
@@ -33,8 +34,10 @@ def main() -> None:
         print(f"[{response.role}] 分析完成。", flush=True)
 
     result = engine.run(question, on_agent_start=show_start, on_agent_done=show_done)
+    report_path = save_report(result)
     print("\n" + "=" * 60 + "\n", flush=True)
     print(result.to_markdown())
+    print(f"\n报告已保存到：{report_path}", flush=True)
 
 
 if __name__ == "__main__":
