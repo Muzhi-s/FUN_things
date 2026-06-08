@@ -13,7 +13,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("question", nargs="*", help="要让 AI 董事会分析的问题")
     parser.add_argument("--model", default="qwen3:4b", help="Ollama 模型名，默认 qwen3:4b")
     parser.add_argument("--temperature", type=float, default=0.7, help="模型温度，默认 0.7")
-    parser.add_argument("--timeout", type=float, default=120.0, help="模型请求超时时间，默认 120 秒")
+    parser.add_argument("--timeout", type=float, default=300.0, help="模型请求超时时间，默认 300.0 秒")
     return parser.parse_args()
 
 
