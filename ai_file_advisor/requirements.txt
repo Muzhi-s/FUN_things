@@ -1,0 +1,4 @@
+pefile
+pywin32
+ollama
+streamlit
