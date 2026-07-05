@@ -60,17 +60,28 @@ def _build_user_prompt(file_metadata: dict[str, Any], risk_result: dict[str, Any
         f"Version: {file_metadata.get('version') or ''}",
         f"Risk Level: {risk_result.get('risk_level', 'unknown')}",
         f"Risk Reason: {risk_result.get('reason', '')}",
-        "Return a concise explanation with these parts: summary, purpose, deletion advice, confidence.",
+        'Return ONLY valid JSON. Do not use markdown. Do not explain. Format: {"summary": "", "purpose": "", "risk": "", "advice": "", "confidence": 90}',
     ]
     return "\n".join(lines)
 
 
 def _extract_message_content(response: Any) -> str:
-    if isinstance(response, dict):
-        message = response.get("message")
-        if isinstance(message, dict):
-            content = message.get("content")
-            if isinstance(content, str):
-                return content
+    """兼容新版和旧版 Ollama SDK"""
 
-    return str(response)
+    # 新版 ollama SDK（ChatResponse）
+    if hasattr(response, "message"):
+        message = response.message
+        if hasattr(message, "content"):
+            return str(message.content or "")
+        if isinstance(message, dict):
+            return str(message.get("content") or "")
+
+    # 旧版 SDK（dict）
+    if isinstance(response, dict):
+        message = response.get("message", {})
+        if isinstance(message, dict):
+            return str(message.get("content") or "")
+        if hasattr(message, "content"):
+            return str(message.content or "")
+
+    return ""
