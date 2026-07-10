@@ -8,16 +8,16 @@ def apply_app_styles() -> None:
         """
         <style>
         .stApp {
-            background: #f2f4f8;
-            color: #1f1f1f;
+            background: #f2f4f8;  /* 浅灰色背景 */
+            color: #1f1f1f;       /* 深色文本 */
         }
         .block-container {
-            max-width: 1180px;
+            max-width: 1180px;     /* 内容最大宽度 */
             padding-top: 2rem;
             padding-bottom: 2.4rem;
         }
         [data-testid="stSidebar"] {
-            background: #ffffff;
+            background: #ffffff;    /* 白色侧边栏 */
             border-right: 1px solid #e8ebf0;
         }
         h1, h2, h3 {
@@ -28,14 +28,14 @@ def apply_app_styles() -> None:
         }
         .stButton > button {
             min-height: 2.6rem;
-            background: #222222;
+            background: #222222;   /* 深色按钮 */
             color: white;
             border-radius: 8px;
             border: none;
             font-weight: 600;
         }
         .stButton > button:hover {
-            background: #444444;
+            background: #444444;  /* 悬停变亮 */
             color: white;
             border: none;
         }
@@ -44,7 +44,7 @@ def apply_app_styles() -> None:
         }
         div[data-testid="stVerticalBlockBorderWrapper"] {
             border-color: #e7eaf0;
-            border-radius: 18px;
+            border-radius: 18px;  /* 圆角容器 */
             background: #ffffff;
         }
         </style>

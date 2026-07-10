@@ -1,4 +1,4 @@
-"""SQLite cache for file analysis results."""
+"""使用 SQLite 数据库缓存文件分析结果"""
 
 from __future__ import annotations
 
@@ -12,16 +12,21 @@ DEFAULT_CACHE_PATH = Path(__file__).resolve().parents[1] / "database" / "advisor
 
 
 def load_cached_analysis(file_path: str | Path, db_path: str | Path = DEFAULT_CACHE_PATH) -> dict[str, Any] | None:
-    """Return cached analysis when path, size, and modification time still match."""
+    """从缓存中加载指定文件的分析结果"""
 
+    # 文件存在性检查
     target_path = Path(file_path)
     if not target_path.exists():
         return None
 
+    # 构建文件签名并查询缓存
     file_signature = _build_file_signature(target_path)
+    
+    # 连接数据库
     connection = _connect(db_path)
     try:
         _ensure_schema(connection)
+        # 查询缓存(精准匹配)
         row = connection.execute(
             """
             SELECT payload_json
@@ -43,9 +48,10 @@ def store_cached_analysis(
     payload: dict[str, Any],
     db_path: str | Path = DEFAULT_CACHE_PATH,
 ) -> None:
-    """Persist an analysis result for later reuse."""
+    """将文件分析结果存储到缓存中"""
 
     target_path = Path(file_path)
+    #构建文件签名
     file_signature = _build_file_signature(target_path)
     connection = _connect(db_path)
     try:
@@ -72,6 +78,7 @@ def store_cached_analysis(
         connection.close()
 
 
+# 数据库连接和模式管理
 def _connect(db_path: str | Path) -> sqlite3.Connection:
     database_path = Path(db_path)
     database_path.parent.mkdir(parents=True, exist_ok=True)
@@ -79,7 +86,7 @@ def _connect(db_path: str | Path) -> sqlite3.Connection:
     connection.row_factory = sqlite3.Row
     return connection
 
-
+# 保证数据库模式存在
 def _ensure_schema(connection: sqlite3.Connection) -> None:
     connection.execute(
         """
@@ -93,7 +100,7 @@ def _ensure_schema(connection: sqlite3.Connection) -> None:
         """
     )
 
-
+# 文件签名构建
 def _build_file_signature(file_path: Path) -> dict[str, Any]:
     stat_result = file_path.stat()
     return {

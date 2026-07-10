@@ -15,13 +15,14 @@ from ui.answer_view import render_answer_result
 from ui.styles import apply_app_styles
 
 
-DEFAULT_SCAN_PATH = r"D:\fun_th1ngs\auto_shutdown"
+DEFAULT_SCAN_PATH = r"D:"
 
 
 def main() -> None:
     st.set_page_config(page_title="AI File Advisor", page_icon="🗂️", layout="wide")
     apply_app_styles()
 
+    #侧边栏和主区域逻辑
     with st.sidebar:
         st.title("AI File Advisor")
         st.caption("本地文件分析助手")
@@ -29,7 +30,7 @@ def main() -> None:
         st.subheader("扫描位置")
         root_dir = st.text_input("目录路径", value=DEFAULT_SCAN_PATH)
         scan_button = st.button("扫描文件", type="primary", use_container_width=True)
-
+    # 扫描逻辑
     if scan_button:
         try:
             scanned_files = scan_program_directory(root_dir)
@@ -56,6 +57,7 @@ def main() -> None:
     st.markdown("### 分析结果")
     analyze_button = st.button("分析当前文件", type="primary", use_container_width=True)
 
+    #分析触发
     if analyze_button:
         try:
             with st.spinner("正在生成文件建议..."):
@@ -80,7 +82,7 @@ def _render_empty_state() -> None:
     st.caption("先选择一个目录进行扫描。分析完成后，这里只展示用户真正需要的文件判断和处理建议。")
     st.info("在左侧输入目录路径并点击“扫描文件”。")
 
-
+# 文件选择器
 def _render_file_picker(scanned_files: list[dict[str, object]]) -> str:
     st.markdown("### 选择文件")
     selected_path = st.selectbox(

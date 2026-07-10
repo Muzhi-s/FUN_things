@@ -10,7 +10,7 @@ from typing import Any
 import streamlit as st
 import streamlit.components.v1 as components
 
-
+# 入口函数
 def render_answer_result(selected_path: str, result: dict[str, Any]) -> None:
     metadata = _dict_value(result.get("metadata"))
     risk = _dict_value(result.get("risk"))
@@ -22,7 +22,7 @@ def render_answer_result(selected_path: str, result: dict[str, Any]) -> None:
     if result.get("cache_hit"):
         st.caption("本次结果来自本地缓存。")
 
-
+# 数据标准化
 def _normalize_answer(
     selected_path: str,
     metadata: dict[str, Any],
@@ -44,7 +44,7 @@ def _normalize_answer(
     summary = _text_or(parsed.get("summary"), "")
     if not summary:
         summary = _fallback_summary(file_name, company, risk_level)
-
+    # 从各数据源中提取信息，构建标准化的回答字典
     return {
         "status": _status_text(parsed.get("advice"), risk_level),
         "status_class": _status_class(parsed.get("advice"), risk_level),
@@ -63,7 +63,7 @@ def _normalize_answer(
         "confidence_class": _confidence_class(parsed.get("confidence")),
     }
 
-
+# HTML卡片
 def _build_card_html(answer: dict[str, str]) -> str:
     return f"""
 <!DOCTYPE html>
@@ -427,7 +427,7 @@ def _try_parse_json(content: str) -> dict[str, Any] | None:
 
     return value if isinstance(value, dict) else None
 
-
+# 标签文本解析
 def _parse_labeled_text(text: str) -> dict[str, str] | None:
     if not text:
         return None
@@ -441,6 +441,7 @@ def _parse_labeled_text(text: str) -> dict[str, str] | None:
     }
     labels = [label for values in label_map.values() for label in values]
     label_pattern = "|".join(re.escape(label) for label in sorted(labels, key=len, reverse=True))
+    # 正则表达式匹配标签和对应的值，支持多行文本
     pattern = re.compile(
         rf"(?im)^\s*(?:[-*]\s*)?(?P<label>{label_pattern})\s*[:：]\s*(?P<value>.*?)(?=^\s*(?:[-*]\s*)?(?:{label_pattern})\s*[:：]|\Z)",
         re.DOTALL,
@@ -469,7 +470,7 @@ def _extract_json_fragment(text: str) -> str | None:
         return None
     return text[start : end + 1]
 
-
+# 清理模型输出
 def _clean_model_text(content: object) -> str:
     text = str(content or "").strip()
     if not text:
@@ -482,7 +483,7 @@ def _clean_model_text(content: object) -> str:
 
 
 def _extract_cached_message_content(text: str) -> str | None:
-    """Recover assistant text from cached ChatResponse repr values."""
+    """恢复被缓存的消息内容，通常是一个字符串字面量"""
 
     match = re.search(r"\bcontent=(?P<quote>['\"])", text)
     if match is None:

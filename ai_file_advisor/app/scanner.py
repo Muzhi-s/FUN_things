@@ -1,5 +1,5 @@
 """
-File scanning and filtering for AI File Advisor.
+负责文件扫描与过滤
 """
 
 from __future__ import annotations
@@ -18,12 +18,12 @@ PROGRAM_EXTENSIONS = {
 
 
 def scan_directory(root_dir: str | Path) -> list[dict[str, object]]:
-    """Recursively scan a directory and return all files.
+    """递归扫描目录并返回所有文件
 
-    Each item contains:
-    - path: full file path as a string
-    - name: file name
-    - size: file size in bytes
+    每个项目包含:
+    - path: 文件完整路径
+    - name: 文件名
+    - size: 文件大小（字节）
     """
 
     root_path = Path(root_dir)
@@ -44,7 +44,7 @@ def scan_directory(root_dir: str | Path) -> list[dict[str, object]]:
 
 
 def filter_program_files(files: Iterable[dict[str, object]]) -> list[dict[str, object]]:
-    """Keep only program-related files by extension."""
+    """过滤出程序相关的文件（如 .exe, .dll, .msi 等）"""
 
     filtered_files: list[dict[str, object]] = []
     for file_info in files:
@@ -55,7 +55,7 @@ def filter_program_files(files: Iterable[dict[str, object]]) -> list[dict[str, o
 
 
 def scan_program_files(root_dir: str | Path) -> list[dict[str, object]]:
-    """Scan a directory and return only program-related files."""
+    """扫描目录并返回程序相关的文件列表"""
     return filter_program_files(scan_directory(root_dir))
 
 

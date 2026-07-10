@@ -1,4 +1,4 @@
-"""Ollama-backed analysis for AI File Advisor."""
+"""由Ollama驱动的AI文件顾问分析功能"""
 
 from __future__ import annotations
 
@@ -16,12 +16,12 @@ def analyze_with_ollama(
     model: str = DEFAULT_MODEL,
     chat_fn: Callable[..., Any] | None = None,
 ) -> dict[str, Any]:
-    """Generate a natural-language file explanation with Ollama.
+    """使用 Ollama 生成自然语言文件说明。"""
 
-    The prompt is intentionally simple at this stage; Step 6 will refine it.
-    """
-
+    #决定使用哪个聊天函数：如果提供了 chat_fn，则使用它；否则使用默认的 ollama.chat
     chat_callable = chat_fn or ollama.chat
+
+    #构建消息列表
     messages = [
         {
             "role": "system",
@@ -37,9 +37,11 @@ def analyze_with_ollama(
         },
     ]
 
+    #调用ollama api进行分析
     response = chat_callable(model=model, messages=messages)
     content = _extract_message_content(response)
 
+    #返回结构化结果
     return {
         "model": model,
         "messages": messages,
@@ -47,7 +49,7 @@ def analyze_with_ollama(
         "raw_response": response,
     }
 
-
+# 构建用户提示词
 def _build_user_prompt(file_metadata: dict[str, Any], risk_result: dict[str, Any]) -> str:
     lines = [
         "Analyze this Windows file:",
@@ -64,7 +66,7 @@ def _build_user_prompt(file_metadata: dict[str, Any], risk_result: dict[str, Any
     ]
     return "\n".join(lines)
 
-
+# 提取消息内容
 def _extract_message_content(response: Any) -> str:
     """兼容新版和旧版 Ollama SDK"""
 

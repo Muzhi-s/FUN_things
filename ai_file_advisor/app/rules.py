@@ -1,4 +1,4 @@
-"""Basic path-based risk rules for AI File Advisor."""
+"""基于文件路径的规则引擎，用于评估删除风险。"""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from pathlib import Path, PureWindowsPath
 from typing import Any
 
 
+# 风险评估结果
 @dataclass(frozen=True)
 class RiskResult:
     risk_level: str
@@ -15,7 +16,7 @@ class RiskResult:
 
 
 def assess_file_risk(file_path: str | Path, metadata: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Assess deletion risk using only the file path for now."""
+    """初步简单评估文件的删除风险"""
 
     metadata = metadata or {}
     windows_path = PureWindowsPath(str(file_path))
